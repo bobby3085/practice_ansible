@@ -1,0 +1,33 @@
+---
+# tasks file for practice
+#
+- name: update and upgrade apt package
+  ansible.builtin.apt:
+    update-cache: yes
+    upgrade: yes
+
+      # if we need to unintall apache2 we can use below code
+      #- name: unInstall apache practice
+      #  ansible.builtin.apt:
+      #    name: apache2
+      #    state: absent
+    
+- name: Install apache practice
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: yes
+
+      # if we want to replace file , we delete current file by using following 
+      #- name: Remove the existing folder
+      #  ansible.builtin.file:
+      #    path: /var/www/html/index.html # Path to the folder to be removed
+      #    state: absent
+        
+- name: copy file with owner permission
+  ansible.builtin.copy:
+    src: files/index.html     #replace with any file name
+    dest: /var/www/html
+    owner: root
+    group: root
+    mode: '0644'
