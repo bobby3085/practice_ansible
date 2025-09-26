@@ -2,29 +2,7 @@
 - hosts: all
   become: true
 
-  tasks:
+  roles: 
+    - practice
 
-    - name: update and upgrade apt package
-      ansible.builtin.apt:
-        update-cache: yes
-        upgrade: yes
-
-    - name: Install apache httpd
-      ansible.builtin.apt:
-        name: apache2
-        state: present
-        update_cache: yes
-
-          # - name: Remove the existing folder
-          # ansible.builtin.file:
-          # path: var/www/html/template # Path to the folder to be removed
-          #state: absent
-
-    - name: copy file with owner permission
-      ansible.builtin.copy:
-        src: index.html #replace with any file name 
-        dest: var/www/html
-        owner: root
-        group: root
-        mode: '0644'
-      
+  
