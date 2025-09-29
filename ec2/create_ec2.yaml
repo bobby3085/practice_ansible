@@ -4,4 +4,4 @@
 
   roles:
 
-     - ec2
+     - ec2  # ec2 is the name of role
