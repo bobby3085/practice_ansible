@@ -1,0 +1,9 @@
+---
+- name: Initiate clean system shutdown on all inventory hosts
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Shutdown all hosts Immediately
+      ansible.builtin.command: /sbin/shutdown -t now
+

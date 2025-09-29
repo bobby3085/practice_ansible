@@ -1,0 +1,25 @@
+---
+- hosts: all
+  gather_facts: true  # CRITICAL: Ensures ansible_facts are available
+  become: true
+
+  tasks:
+    - name: Print a message to the console
+      ansible.builtin.debug:
+        msg: "System is shutting down now as part of an automation task."
+
+    - name: Shutdown Ubuntu instances only
+      ansible.builtin.command: /sbin/shutdown -t now
+        
+        # The 'reboot' module uses shutdown commands internally.
+        # Use 'reboot_timeout' if you want Ansible to wait for the host
+        # to come back, but for a simple shutdown, no further arguments are needed.
+        
+      when:
+        ansible_facts['os_family'] == "Debian"
+
+    - name: Notify Control Node of Shutdown
+      ansible.builtin.debug:
+        msg: "Host {{ inventory_hostname }} is a Debian family host and has been targeted for shutdown."
+      when:
+        ansible_facts['os_family'] == "Debian"
