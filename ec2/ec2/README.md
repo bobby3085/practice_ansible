@@ -1,38 +1,48 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Role to create 3 ec2 instances. 2 of them are ubuntu and 1 is linux.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+If your terminal configured with aws cli, then we need not to provide access key and secret key. 
 
-Role Variables
---------------
+If not configured with aws cli, then we need to create a vault with a password.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+command to create a simple password is 
 
-Dependencies
+openssl rand -base64 2048 > <filename.pass>
+
+To create a vault
+
+ansible-vault create <desired-vault-name.yml> --vault-password-file <filename.pass>
+
+
+To execute playbook
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+ansible-playbook <name-of-playbook.yaml>
+
+if enabled vault
+
+ansible-playbook <name-of-playbook.yaml> --vault-password-file <filename>
 
 Example Playbook
 ----------------
+Created role named as ec2. We use role name in playbook as below
+---
+- hosts: localhost
+  connection: local
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+  roles:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+     - ec2  # ec2 is the name of role
 
-License
--------
-
-BSD
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+I am venkat. 
+
+I created this playbook as part of my learning
